@@ -50,7 +50,6 @@
 		59226FCF29F5BB260005251A = {
 			isa = PBXGroup;
 			children = (
-				59226FF829F5C1C30005251A /* GoogleService-Info.plist */,
 				59226FDA29F5BB260005251A /* recipes */,
 				59226FD929F5BB260005251A /* Products */,
 			);
@@ -67,6 +66,7 @@
 		59226FDA29F5BB260005251A /* recipes */ = {
 			isa = PBXGroup;
 			children = (
+				59226FF829F5C1C30005251A /* GoogleService-Info.plist */,
 				59226FDB29F5BB260005251A /* AppDelegate.swift */,
 				59226FDD29F5BB260005251A /* SceneDelegate.swift */,
 				59226FDF29F5BB260005251A /* ViewController.swift */,
