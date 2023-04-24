@@ -20,6 +20,7 @@
 		59226FF929F5C1C30005251A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 59226FF829F5C1C30005251A /* GoogleService-Info.plist */; };
 		59541B7729F63103001FF1CF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59541B7629F63103001FF1CF /* LoginViewController.swift */; };
 		59541B7929F6314A001FF1CF /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59541B7829F6314A001FF1CF /* RegisterViewController.swift */; };
+		59541B7B29F6373A001FF1CF /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59541B7A29F6373A001FF1CF /* HomeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		59226FF829F5C1C30005251A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		59541B7629F63103001FF1CF /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		59541B7829F6314A001FF1CF /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		59541B7A29F6373A001FF1CF /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 				59226FE429F5BB270005251A /* Assets.xcassets */,
 				59226FE629F5BB270005251A /* LaunchScreen.storyboard */,
 				59226FE929F5BB270005251A /* Info.plist */,
+				59541B7A29F6373A001FF1CF /* HomeViewController.swift */,
 			);
 			path = recipes;
 			sourceTree = "<group>";
@@ -170,6 +173,7 @@
 				59226FE029F5BB260005251A /* ViewController.swift in Sources */,
 				59226FDC29F5BB260005251A /* AppDelegate.swift in Sources */,
 				59226FDE29F5BB260005251A /* SceneDelegate.swift in Sources */,
+				59541B7B29F6373A001FF1CF /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
