@@ -56,7 +56,7 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, UIIm
     
     @IBAction func logoutBtn(_ sender: UIButton) {
         try? Auth.auth().signOut()
-        let mainViewController = self.storyboard?.instantiateViewController(withIdentifier: "MainVC") as? MainViewController
+        let mainViewController = self.storyboard?.instantiateViewController(withIdentifier: "MainVC") as? ViewController
         self.view.window?.rootViewController = mainViewController
         self.view.window?.makeKeyAndVisible()
         
