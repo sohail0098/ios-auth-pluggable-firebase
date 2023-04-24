@@ -44,24 +44,24 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, UIIm
     
     @IBOutlet weak var userImage: UIImageView!
     
-    var imagePicker = UIImagePickerController()
-    
-    @IBAction func imageChooserBtn(_ sender: UIButton) {
-        if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
-            imagePicker.delegate = self
-            imagePicker.sourceType = .savedPhotosAlbum
-            imagePicker.allowsEditing = false
-            present(imagePicker, animated: true, completion: nil)
-        }
-        func imagePickerController(_ picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: NSDictionary!) {
-            self.dismiss(animated: true, completion: { () -> Void in
-            })
-            userImage.image = image
-        }
+    @IBAction func imageChooserBtn(_ sender: Any) {
+        
+        let imagePickerController = UIImagePickerController()
+            imagePickerController.allowsEditing = false //If you want edit option set "true"
+            imagePickerController.sourceType = .photoLibrary
+            imagePickerController.delegate = self
+            present(imagePickerController, animated: true, completion: nil)
     }
     
-    
-    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let tempImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+        userImage.image  = tempImage
+        self.dismiss(animated: true, completion: nil)
+    }
+
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
     
     @IBAction func deleteAccountBtn(_ sender: UIButton) {
         let user = Auth.auth().currentUser
