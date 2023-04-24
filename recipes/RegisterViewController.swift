@@ -23,6 +23,7 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var registerPassword: UITextField!
     @IBOutlet weak var registerPasswordConfirm: UITextField!
     @IBOutlet weak var errorLabel: UILabel!
+    let defaultImg = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
     
     @IBAction func registerButton(_ sender: UIButton) {
         if registerFullName.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||
@@ -45,7 +46,7 @@ class RegisterViewController: UIViewController {
                     self.errorLabel.alpha = 1
                 } else {
                     let db = Firestore.firestore()
-                    db.collection("users").addDocument(data: ["name": name, "uid": result!.user.uid]) { (error) in
+                    db.collection("users").addDocument(data: ["name": name, "email": email, "img": self.defaultImg, "uid": result!.user.uid]) { (error) in
                         if error != nil {
                             self.errorLabel.text = "Error saving user data"
                             self.errorLabel.alpha = 1
