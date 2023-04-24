@@ -46,12 +46,20 @@ class RegisterViewController: UIViewController {
                     self.errorLabel.alpha = 1
                 } else {
                     let db = Firestore.firestore()
-                    db.collection("users").addDocument(data: ["name": name, "email": email, "img": self.defaultImg, "uid": result!.user.uid]) { (error) in
+                    // Custom document ID in a collection (using uid itself in this case)
+                    db.collection("users").document(result!.user.uid).setData(["name": name, "email": email, "img": self.defaultImg, "uid": result!.user.uid]) { (error) in
                         if error != nil {
                             self.errorLabel.text = "Error saving user data"
                             self.errorLabel.alpha = 1
                         }
                     }
+                    // Creates Auto-ID for document in a collection
+//                    db.collection("users").addDocument(data: ["name": name, "email": email, "img": self.defaultImg, "uid": result!.user.uid]) { (error) in
+//                        if error != nil {
+//                            self.errorLabel.text = "Error saving user data"
+//                            self.errorLabel.alpha = 1
+//                        }
+//                    }
                     let homeViewController = self.storyboard?.instantiateViewController(withIdentifier: "HomeVC") as? HomeViewController
                     self.view.window?.rootViewController = homeViewController
                     self.view.window?.makeKeyAndVisible()

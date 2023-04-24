@@ -85,21 +85,31 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, UIIm
                 print("An error occured! \(error)")
             } else {
                 let db = Firestore.firestore()
-                db.collection("users").whereField("uid", isEqualTo: userID!).getDocuments { snapshot, error in
-                    if error != nil {
-                        print("An error occured. \(error!)")
-                    } else {
-                        for document in snapshot!.documents {
-                            print("\(document.documentID) => \(document.data())")
-                            db.collection("users").document(document.documentID).delete()
-                        }
-                        self.showToast(message: "User Account and Data Deleted!", seconds: 2.0)
-                        let mainViewController = self.storyboard?.instantiateViewController(withIdentifier: "MainVC") as? ViewController
-                        self.view.window?.rootViewController = mainViewController
-                        self.view.window?.makeKeyAndVisible()
-                        
-                    }
-                }
+                
+                // switch to using custom document id to find document (userID was used to add a document)
+                db.collection("users").document(userID!).delete()
+                self.showToast(message: "User Account and Data Deleted!", seconds: 2.0)
+                let mainViewController = self.storyboard?.instantiateViewController(withIdentifier: "MainVC") as? ViewController
+                self.view.window?.rootViewController = mainViewController
+                self.view.window?.makeKeyAndVisible()
+                
+                
+                // find document using wherefield-isequalto
+//                db.collection("users").whereField("uid", isEqualTo: userID!).getDocuments { snapshot, error in
+//                    if error != nil {
+//                        print("An error occured. \(error!)")
+//                    } else {
+//                        for document in snapshot!.documents {
+//                            print("\(document.documentID) => \(document.data())")
+//                            db.collection("users").document(document.documentID).delete()
+//                        }
+//                        self.showToast(message: "User Account and Data Deleted!", seconds: 2.0)
+//                        let mainViewController = self.storyboard?.instantiateViewController(withIdentifier: "MainVC") as? ViewController
+//                        self.view.window?.rootViewController = mainViewController
+//                        self.view.window?.makeKeyAndVisible()
+//
+//                    }
+//                }
             }
         }
         
@@ -118,6 +128,29 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, UIIm
         let currentUser = Auth.auth().currentUser
         let userID = Auth.auth().currentUser?.uid
         let db = Firestore.firestore()
+        
+//        // using custom id (userid) that was set during registration to find document
+//        let document = db.collection("users").document(userID!)
+//        var updatedData = false
+//        let screenName = self.userNameField.text!
+//        let screenEmail = self.userEmailField.text!
+//
+//        if screenName != document.value(forKey: "name") as? String {
+//            document.updateData(["name": screenName])
+//            updatedData = true
+//        }
+//        if screenEmail != document.value(forKey: "email") as? String {
+//            document.updateData(["email": screenEmail])
+//            currentUser?.updateEmail(to: screenEmail)
+//            updatedData = true
+//        }
+//        if updatedData == true {
+//            self.showToast(message: "Data Updated!", seconds: 2.0)
+//        } else {
+//            self.showToast(message: "No Changes!", seconds: 1.0)
+//        }
+        
+//         find document using wherefield and userid isequalto
         db.collection("users").whereField("uid", isEqualTo: userID!).getDocuments() { (querySnapshot, error) in
             if error != nil {
                 print("An Error Occured! \(error!)")
