@@ -9,6 +9,7 @@ import UIKit
 import Firebase
 import FirebaseAuth
 import FirebaseDatabase
+import FirebaseStorage
 
 class HomeViewController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
 
@@ -34,7 +35,6 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, UIIm
                         }
                     }
                 }
-//        var initialData = ["name": userNameField.text, "email": userEmailField.text]
     }
     
     @IBOutlet weak var userNameField: UITextField!
@@ -55,22 +55,28 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, UIIm
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let tempImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
         userImage.image  = tempImage
-        
-//        
-//        let newImageURL = "something"
-//        let userID = Auth.auth().currentUser?.uid
-//        let db = Firestore.firestore()
-//        db.collection("users").whereField("uid", isEqualTo: userID!).getDocuments { snapshot, error in
-//            if error != nil {
-//                print("An error occured. \(error!)")
-//            } else {
-//                let document = snapshot?.documents.first
-//                let docID = document?.documentID
-//                db.collection("users").document(docID!).updateData(["img": newImageURL])
-//            }
-//        }
-        
         self.dismiss(animated: true, completion: nil)
+        
+        let userID = Auth.auth().currentUser?.uid
+        let storageRef = Storage.storage().reference()
+        let metaData = StorageMetadata()
+        metaData.contentType = "image/png"
+        
+        let ref = storageRef.child("\(userID!).png")
+        
+        let d: Data = tempImage.pngData()!
+        
+        ref.putData(d, metadata: metaData) { (metadata, error) in
+            if error != nil {
+                print("An Error Occured! \(error!)")
+            } else {
+                ref.downloadURL { url, err in
+                    let newImageURL = url
+                    let db = Firestore.firestore()
+                    db.collection("users").document(userID!).updateData(["img": newImageURL!.absoluteString])
+                }
+            }
+        }
     }
 
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
