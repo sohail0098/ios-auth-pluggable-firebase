@@ -56,7 +56,7 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, UIIm
     
     @IBAction func logoutBtn(_ sender: UIButton) {
         try? Auth.auth().signOut()
-        let mainViewController = self.storyboard?.instantiateViewController(withIdentifier: "MainVC") as? ViewController
+        let mainViewController = self.storyboard?.instantiateViewController(withIdentifier: "MainVC") as? MainViewController
         self.view.window?.rootViewController = mainViewController
         self.view.window?.makeKeyAndVisible()
         
@@ -64,7 +64,6 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, UIIm
     
     func getUserDetails() {
         guard let userID = Auth.auth().currentUser?.uid else { return }
-        print("UID:", userID)
         let db = Firestore.firestore()
         db.collection("users").whereField("uid", isEqualTo: userID).getDocuments() { (querySnapshot, err) in
             if let err = err {
@@ -75,7 +74,6 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, UIIm
                     var temp_email = document.data()["email"]
                     var temp_name = document.data()["name"]
                     var temp_img = document.data()["img"] as? String
-                    print(temp_img!, temp_name!, temp_email!)
                     self.userNameField.text = temp_name as? String
                     self.userEmailField.text = temp_email as? String
                     
