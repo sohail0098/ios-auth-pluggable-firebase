@@ -24,13 +24,14 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, UIIm
             } else {
                 for document in querySnapshot!.documents {
                     print("\(document.documentID) => \(document.data())")
-                    var temp_email = document.data()["email"]
-                    var temp_name = document.data()["name"]
-                    var temp_img = document.data()["img"] as? String
+                    let temp_email = document.data()["email"]
+                    let temp_name = document.data()["name"]
+                    let temp_img = document.data()["img"] as? String
                     self.userNameField.text = temp_name as? String
                     self.userEmailField.text = temp_email as? String
                     let url = URL(string: temp_img!)
                     self.downloadImage(from: url!)
+                    self.showToast(message: "Hello, \(temp_name!)!", seconds: 1.5)
                 }
             }
         }
@@ -82,9 +83,11 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, UIIm
                             print("\(document.documentID) => \(document.data())")
                             db.collection("users").document(document.documentID).delete()
                         }
+                        self.showToast(message: "User Account and Data Deleted!", seconds: 2.0)
                         let mainViewController = self.storyboard?.instantiateViewController(withIdentifier: "MainVC") as? ViewController
                         self.view.window?.rootViewController = mainViewController
                         self.view.window?.makeKeyAndVisible()
+                        
                     }
                 }
             }
@@ -94,6 +97,7 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, UIIm
     
     @IBAction func logoutBtn(_ sender: UIButton) {
         try? Auth.auth().signOut()
+        self.showToast(message: "Logged-out Successfully!", seconds: 1.5)
         let mainViewController = self.storyboard?.instantiateViewController(withIdentifier: "MainVC") as? ViewController
         self.view.window?.rootViewController = mainViewController
         self.view.window?.makeKeyAndVisible()
@@ -112,3 +116,17 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, UIIm
         URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
     }
 }
+
+extension UIViewController{
+
+func showToast(message : String, seconds: Double){
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        alert.view.backgroundColor = .black
+        alert.view.alpha = 0.5
+        alert.view.layer.cornerRadius = 15
+        self.present(alert, animated: true)
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds) {
+            alert.dismiss(animated: true)
+        }
+    }
+ }
