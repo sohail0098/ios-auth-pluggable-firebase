@@ -23,7 +23,7 @@ class RegisterViewController: UIViewController {
     @IBOutlet weak var registerPassword: UITextField!
     @IBOutlet weak var registerPasswordConfirm: UITextField!
     @IBOutlet weak var errorLabel: UILabel!
-    let defaultImg = "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460__340.png"
+    let defaultImg = "https://firebasestorage.googleapis.com/v0/b/recipes-cfad1.appspot.com/o/defaultImg.png?alt=media&token=3bfe9a47-10b0-4314-9c9e-b1eaa3164947"
     
     @IBAction func registerButton(_ sender: UIButton) {
         if registerFullName.text?.trimmingCharacters(in: .whitespacesAndNewlines) == "" ||

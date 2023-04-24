@@ -15,28 +15,27 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, UIIm
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
         guard let userID = Auth.auth().currentUser?.uid else { return }
-        let db = Firestore.firestore()
-        db.collection("users").whereField("uid", isEqualTo: userID).getDocuments() { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting document. \(err)")
-            } else {
-                for document in querySnapshot!.documents {
-                    print("\(document.documentID) => \(document.data())")
-                    let temp_email = document.data()["email"]
-                    let temp_name = document.data()["name"]
-                    let temp_img = document.data()["img"] as? String
-                    self.userNameField.text = temp_name as? String
-                    self.userEmailField.text = temp_email as? String
-                    let url = URL(string: temp_img!)
-                    self.downloadImage(from: url!)
-                    self.showToast(message: "Hello, \(temp_name!)!", seconds: 1.5)
+                let db = Firestore.firestore()
+                db.collection("users").whereField("uid", isEqualTo: userID).getDocuments() { (querySnapshot, err) in
+                    if let err = err {
+                        print("Error getting document. \(err)")
+                    } else {
+                        for document in querySnapshot!.documents {
+                            print("\(document.documentID) => \(document.data())")
+                            let temp_email = document.data()["email"]
+                            let temp_name = document.data()["name"]
+                            let temp_img = document.data()["img"] as? String
+                            self.userNameField.text = temp_name as? String
+                            self.userEmailField.text = temp_email as? String
+                            let url = URL(string: temp_img!)
+                            self.downloadImage(from: url!)
+                            self.showToast(message: "Hello, \(temp_name!)!", seconds: 1.5)
+                        }
+                    }
                 }
-            }
-        }
+//        var initialData = ["name": userNameField.text, "email": userEmailField.text]
     }
-    
     
     @IBOutlet weak var userNameField: UITextField!
     
@@ -56,6 +55,21 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, UIIm
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         let tempImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
         userImage.image  = tempImage
+        
+//        
+//        let newImageURL = "something"
+//        let userID = Auth.auth().currentUser?.uid
+//        let db = Firestore.firestore()
+//        db.collection("users").whereField("uid", isEqualTo: userID!).getDocuments { snapshot, error in
+//            if error != nil {
+//                print("An error occured. \(error!)")
+//            } else {
+//                let document = snapshot?.documents.first
+//                let docID = document?.documentID
+//                db.collection("users").document(docID!).updateData(["img": newImageURL])
+//            }
+//        }
+        
         self.dismiss(animated: true, completion: nil)
     }
 
@@ -98,6 +112,38 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, UIIm
         self.view.window?.rootViewController = mainViewController
         self.view.window?.makeKeyAndVisible()
     }
+    
+    
+    @IBAction func updateBtn(_ sender: Any) {
+        let currentUser = Auth.auth().currentUser
+        let userID = Auth.auth().currentUser?.uid
+        let db = Firestore.firestore()
+        db.collection("users").whereField("uid", isEqualTo: userID!).getDocuments() { (querySnapshot, error) in
+            if error != nil {
+                print("An Error Occured! \(error!)")
+            } else {
+                for document in querySnapshot!.documents {
+                    let documentID = document.documentID
+                    var updatedData = false
+                    if self.userNameField.text! != document.data()["name"] as? String {
+                        db.collection("users").document(documentID).updateData(["name": self.userNameField.text!])
+                        updatedData = true
+                    }
+                    if self.userEmailField.text! != document.data()["email"] as? String {
+                        db.collection("users").document(documentID).updateData(["email": self.userEmailField.text!])
+                        currentUser?.updateEmail(to: self.userEmailField.text!)
+                        updatedData = true
+                    }
+                    if updatedData == true {
+                        self.showToast(message: "Data Updated!", seconds: 2.0)
+                    } else {
+                        self.showToast(message: "No Changes!", seconds: 1.0)
+                    }
+                }
+            }
+        }
+    }
+        
     
     func downloadImage(from url: URL) {
         getData(from: url) { data, response, error in

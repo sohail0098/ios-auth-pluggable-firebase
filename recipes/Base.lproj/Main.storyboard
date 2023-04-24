@@ -296,10 +296,12 @@
                                     <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <color key="baseBackgroundColor" systemColor="systemGreenColor"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="updateBtn:" destination="4pf-Dd-A5Y" eventType="touchUpInside" id="PDU-2a-h5A"/>
+                                </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BgI-W7-ofW">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BgI-W7-ofW">
                                 <rect key="frame" x="91" y="499" width="212" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemMintColor"/>
                                 <color key="tintColor" systemColor="systemMintColor"/>
                                 <state key="normal" title="Button"/>
@@ -315,17 +317,20 @@
                         <viewLayoutGuide key="safeArea" id="jwY-WU-Xzd"/>
                         <color key="backgroundColor" systemColor="systemYellowColor"/>
                         <constraints>
+                            <constraint firstItem="BgI-W7-ofW" firstAttribute="top" secondItem="byv-RD-UdH" secondAttribute="bottom" constant="24" id="34O-WP-2oR"/>
                             <constraint firstItem="1jX-3T-s21" firstAttribute="top" secondItem="jwY-WU-Xzd" secondAttribute="top" constant="35" id="3K2-gO-14v"/>
+                            <constraint firstItem="jwY-WU-Xzd" firstAttribute="trailing" secondItem="BgI-W7-ofW" secondAttribute="trailing" constant="90" id="5tl-hM-pDB"/>
                             <constraint firstItem="jwY-WU-Xzd" firstAttribute="trailing" secondItem="tPe-NN-rCh" secondAttribute="trailing" constant="229" id="A7A-fL-Qft"/>
                             <constraint firstItem="jwY-WU-Xzd" firstAttribute="trailing" secondItem="oeB-yq-alb" secondAttribute="trailing" constant="197" id="Db6-B1-D7n"/>
+                            <constraint firstItem="BgI-W7-ofW" firstAttribute="leading" secondItem="jwY-WU-Xzd" secondAttribute="leading" constant="91" id="ERW-kl-oOP"/>
                             <constraint firstItem="jwY-WU-Xzd" firstAttribute="trailing" secondItem="bqa-ZT-TIl" secondAttribute="trailing" constant="80" id="FL4-Tm-auI"/>
-                            <constraint firstItem="jwY-WU-Xzd" firstAttribute="bottom" secondItem="byv-RD-UdH" secondAttribute="bottom" constant="343" id="Fr2-Ki-wVz"/>
                             <constraint firstItem="0vw-y0-ajh" firstAttribute="top" secondItem="tPe-NN-rCh" secondAttribute="bottom" constant="10" id="H0w-oK-Otv"/>
                             <constraint firstItem="byv-RD-UdH" firstAttribute="leading" secondItem="jwY-WU-Xzd" secondAttribute="leading" constant="116" id="HOo-gt-13h"/>
                             <constraint firstItem="1jX-3T-s21" firstAttribute="leading" secondItem="jwY-WU-Xzd" secondAttribute="leading" id="IRq-ud-Tp6"/>
                             <constraint firstItem="jwY-WU-Xzd" firstAttribute="bottom" secondItem="R1I-qJ-I5u" secondAttribute="bottom" constant="69" id="J1J-lZ-cEo"/>
                             <constraint firstItem="e90-my-LHz" firstAttribute="leading" secondItem="jwY-WU-Xzd" secondAttribute="leading" constant="285" id="L3y-rR-L5Y"/>
                             <constraint firstItem="tPe-NN-rCh" firstAttribute="leading" secondItem="jwY-WU-Xzd" secondAttribute="leading" constant="35" id="M8d-sO-8CK"/>
+                            <constraint firstItem="jwY-WU-Xzd" firstAttribute="bottom" secondItem="BgI-W7-ofW" secondAttribute="bottom" constant="284" id="Mxs-0U-mzC"/>
                             <constraint firstItem="jwY-WU-Xzd" firstAttribute="bottom" secondItem="1jX-3T-s21" secondAttribute="bottom" constant="700" id="ODt-Wg-1Bh"/>
                             <constraint firstItem="jwY-WU-Xzd" firstAttribute="bottom" secondItem="e90-my-LHz" secondAttribute="bottom" constant="69" id="OEy-av-8Gk"/>
                             <constraint firstItem="jwY-WU-Xzd" firstAttribute="trailing" secondItem="R1I-qJ-I5u" secondAttribute="trailing" constant="217.33333333333334" id="On5-jB-Nhz"/>
