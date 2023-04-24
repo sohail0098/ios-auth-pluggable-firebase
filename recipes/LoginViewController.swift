@@ -35,7 +35,6 @@ class LoginViewController: UIViewController {
                 let homeViewController = self.storyboard?.instantiateViewController(withIdentifier: "HomeVC") as? HomeViewController
                 self.view.window?.rootViewController = homeViewController
                 self.view.window?.makeKeyAndVisible()
-                print("Successfully Logged-in!")
             }
         }
         

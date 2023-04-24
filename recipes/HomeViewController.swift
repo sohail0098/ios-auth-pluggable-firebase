@@ -48,16 +48,13 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, UIIm
     
     @IBAction func imageChooserBtn(_ sender: UIButton) {
         if UIImagePickerController.isSourceTypeAvailable(.savedPhotosAlbum) {
-            print("Button Capture")
             imagePicker.delegate = self
             imagePicker.sourceType = .savedPhotosAlbum
             imagePicker.allowsEditing = false
-            
             present(imagePicker, animated: true, completion: nil)
         }
         func imagePickerController(_ picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: NSDictionary!) {
             self.dismiss(animated: true, completion: { () -> Void in
-                
             })
             userImage.image = image
         }
@@ -73,7 +70,6 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, UIIm
             if let error = error {
                 print("An error occured! \(error)")
             } else {
-                print("Account Deleted from firebase auth")
                 let db = Firestore.firestore()
                 db.collection("users").whereField("uid", isEqualTo: userID!).getDocuments { snapshot, error in
                     if error != nil {
