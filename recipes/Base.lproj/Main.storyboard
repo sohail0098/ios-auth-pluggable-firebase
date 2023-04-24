@@ -171,7 +171,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3tz-BE-Pv3">
                                 <rect key="frame" x="25" y="700" width="343" height="8"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" systemColor="systemRedColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -227,10 +227,10 @@
             </objects>
             <point key="canvasLocation" x="2125.9541984732823" y="-254.22535211267606"/>
         </scene>
-        <!--View Controller-->
+        <!--Home View Controller-->
         <scene sceneID="kgK-u5-iaB">
             <objects>
-                <viewController storyboardIdentifier="HomeVC" id="4pf-Dd-A5Y" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HomeVC" id="4pf-Dd-A5Y" customClass="HomeViewController" customModule="recipes" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SrR-v7-jwG">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -241,14 +241,36 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e90-my-LHz">
+                                <rect key="frame" x="285" y="714" width="78" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Logout"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R1I-qJ-I5u">
+                                <rect key="frame" x="35" y="714" width="140.66666666666666" height="35"/>
+                                <color key="backgroundColor" systemColor="systemRedColor"/>
+                                <color key="tintColor" systemColor="systemRedColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Delete Account">
+                                    <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </buttonConfiguration>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="jwY-WU-Xzd"/>
                         <color key="backgroundColor" systemColor="systemYellowColor"/>
                         <constraints>
                             <constraint firstItem="1jX-3T-s21" firstAttribute="top" secondItem="jwY-WU-Xzd" secondAttribute="top" constant="35" id="3K2-gO-14v"/>
                             <constraint firstItem="1jX-3T-s21" firstAttribute="leading" secondItem="jwY-WU-Xzd" secondAttribute="leading" id="IRq-ud-Tp6"/>
+                            <constraint firstItem="jwY-WU-Xzd" firstAttribute="bottom" secondItem="R1I-qJ-I5u" secondAttribute="bottom" constant="69" id="J1J-lZ-cEo"/>
+                            <constraint firstItem="e90-my-LHz" firstAttribute="leading" secondItem="jwY-WU-Xzd" secondAttribute="leading" constant="285" id="L3y-rR-L5Y"/>
                             <constraint firstItem="jwY-WU-Xzd" firstAttribute="bottom" secondItem="1jX-3T-s21" secondAttribute="bottom" constant="700" id="ODt-Wg-1Bh"/>
+                            <constraint firstItem="jwY-WU-Xzd" firstAttribute="bottom" secondItem="e90-my-LHz" secondAttribute="bottom" constant="69" id="OEy-av-8Gk"/>
+                            <constraint firstItem="jwY-WU-Xzd" firstAttribute="trailing" secondItem="R1I-qJ-I5u" secondAttribute="trailing" constant="217.33333333333334" id="On5-jB-Nhz"/>
+                            <constraint firstItem="R1I-qJ-I5u" firstAttribute="top" secondItem="jwY-WU-Xzd" secondAttribute="top" constant="655" id="YPS-LZ-ZXU"/>
                             <constraint firstItem="jwY-WU-Xzd" firstAttribute="trailing" secondItem="1jX-3T-s21" secondAttribute="trailing" id="h3a-ah-GKi"/>
+                            <constraint firstItem="R1I-qJ-I5u" firstAttribute="leading" secondItem="jwY-WU-Xzd" secondAttribute="leading" constant="35" id="hFN-ID-DMm"/>
+                            <constraint firstItem="jwY-WU-Xzd" firstAttribute="trailing" secondItem="e90-my-LHz" secondAttribute="trailing" constant="30" id="jQV-BP-668"/>
+                            <constraint firstItem="e90-my-LHz" firstAttribute="top" secondItem="jwY-WU-Xzd" secondAttribute="top" constant="655" id="l92-Cy-e4V"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -309,10 +331,10 @@
                                     <segue destination="zae-IE-WFd" kind="show" id="fEI-Sm-pTT"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kkL-PL-GtA">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kkL-PL-GtA">
                                 <rect key="frame" x="0.0" y="624" width="393" height="59"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" systemColor="systemRedColor"/>
                                 <color key="highlightedColor" systemColor="systemRedColor"/>
                             </label>
                         </subviews>

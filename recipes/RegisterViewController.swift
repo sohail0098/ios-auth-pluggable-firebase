@@ -41,7 +41,7 @@ class RegisterViewController: UIViewController {
             
             Auth.auth().createUser(withEmail: email, password: password) { (result, err) in
                 if err != nil {
-                    self.errorLabel.text = "Error Creating User Account!"
+                    self.errorLabel.text = "Error Creating User Account!\n" + err!.localizedDescription
                     self.errorLabel.alpha = 1
                 } else {
                     let db = Firestore.firestore()
