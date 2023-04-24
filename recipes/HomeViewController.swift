@@ -16,7 +16,24 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, UIIm
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        getUserDetails()
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+        let db = Firestore.firestore()
+        db.collection("users").whereField("uid", isEqualTo: userID).getDocuments() { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting document. \(err)")
+            } else {
+                for document in querySnapshot!.documents {
+                    print("\(document.documentID) => \(document.data())")
+                    var temp_email = document.data()["email"]
+                    var temp_name = document.data()["name"]
+                    var temp_img = document.data()["img"] as? String
+                    self.userNameField.text = temp_name as? String
+                    self.userEmailField.text = temp_email as? String
+                    let url = URL(string: temp_img!)
+                    self.downloadImage(from: url!)
+                }
+            }
+        }
     }
     
     
@@ -49,52 +66,42 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, UIIm
     
     
     @IBAction func deleteAccountBtn(_ sender: UIButton) {
+        let user = Auth.auth().currentUser
+        let userID = user?.uid
+        user?.delete {error in
+            if let error = error {
+                print("An error occured! \(error)")
+            } else {
+                print("Account Deleted from firebase auth")
+                let db = Firestore.firestore()
+                db.collection("users").whereField("uid", isEqualTo: userID!).getDocuments { snapshot, error in
+                    if error != nil {
+                        print("An error occured. \(error!)")
+                    } else {
+                        for document in snapshot!.documents {
+                            print("\(document.documentID) => \(document.data())")
+                            db.collection("users").document(document.documentID).delete()
+                        }
+                        let mainViewController = self.storyboard?.instantiateViewController(withIdentifier: "MainVC") as? ViewController
+                        self.view.window?.rootViewController = mainViewController
+                        self.view.window?.makeKeyAndVisible()
+                    }
+                }
+            }
+        }
         
     }
-    
-    
     
     @IBAction func logoutBtn(_ sender: UIButton) {
         try? Auth.auth().signOut()
         let mainViewController = self.storyboard?.instantiateViewController(withIdentifier: "MainVC") as? ViewController
         self.view.window?.rootViewController = mainViewController
         self.view.window?.makeKeyAndVisible()
-        
-    }
-    
-    func getUserDetails() {
-        guard let userID = Auth.auth().currentUser?.uid else { return }
-        let db = Firestore.firestore()
-        db.collection("users").whereField("uid", isEqualTo: userID).getDocuments() { (querySnapshot, err) in
-            if let err = err {
-                print("Error getting document. \(err)")
-            } else {
-                for document in querySnapshot!.documents {
-                    print("\(document.documentID) => \(document.data())")
-                    var temp_email = document.data()["email"]
-                    var temp_name = document.data()["name"]
-                    var temp_img = document.data()["img"] as? String
-                    self.userNameField.text = temp_name as? String
-                    self.userEmailField.text = temp_email as? String
-                    
-                    let url = URL(string: temp_img!)
-                    self.downloadImage(from: url!)
-                    
-                    
-                }
-            }
-        }
-        
-        
     }
     
     func downloadImage(from url: URL) {
-        print("Download started")
         getData(from: url) { data, response, error in
                 guard let data = data, error == nil else { return }
-                print(response?.suggestedFilename ?? url.lastPathComponent)
-                print("Download Finished")
-                // always update the UI from the main thread
                 DispatchQueue.main.async() { [weak self] in
                     self?.userImage.image = UIImage(data: data)
                 }
@@ -105,5 +112,3 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, UIIm
         URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
     }
 }
-
-
