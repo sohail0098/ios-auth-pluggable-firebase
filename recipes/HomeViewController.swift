@@ -92,6 +92,14 @@ class HomeViewController: UIViewController, UINavigationControllerDelegate, UIIm
             } else {
                 let db = Firestore.firestore()
                 
+                let storageRef = Storage.storage().reference()
+                let imageRef = storageRef.child("\(userID!).png")
+                imageRef.delete { err in
+                    if err != nil {
+                        print("Image delete Error! \(err!.localizedDescription)")
+                    }
+                }
+                
                 // switch to using custom document id to find document (userID was used to add a document)
                 db.collection("users").document(userID!).delete()
                 self.showToast(message: "User Account and Data Deleted!", seconds: 2.0)
